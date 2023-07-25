@@ -1,0 +1,48 @@
+import requests
+from bs4 import BeautifulSoup
+import os
+
+# Set the path to the text file containing the HTML script
+filename = "links.txt"
+
+# Set the path to the folder to store the downloaded images
+folder_path = "images"
+
+# Create the folder to store the downloaded images if it doesn't exist
+if not os.path.exists(folder_path):
+    os.makedirs(folder_path)
+
+# Read the HTML script from the text file
+with open(filename, 'rb') as f:
+    html = f.read()
+
+# Parse the HTML content using BeautifulSoup
+soup = BeautifulSoup(html, 'html.parser')
+
+# Find all the image tags
+img_tags = soup.find_all('img')
+
+# Loop through each image tag
+for index, img_tag in enumerate(img_tags):
+    # Get the image source URL
+    img_src = img_tag.get('src')
+
+    # Make a request to the image source URL and get the response content
+    response = requests.get(img_src, verify=False)
+
+    # Extract the file extension from the image source URL
+    extension = img_src.split('.')[-1]
+
+    # Set the file name for the downloaded image
+    filename = f"{index + 1}.jpg"
+
+    # Set the path to the file to save the downloaded image
+    file_path = os.path.join(folder_path, filename)
+
+    # Save the downloaded image to a file
+    with open(file_path, 'wb') as f:
+        f.write(response.content)
+
+    print(f"Downloaded image {filename} at {img_src}")
+
+print("All images downloaded successfully.")

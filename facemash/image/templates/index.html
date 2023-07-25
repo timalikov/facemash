@@ -1,0 +1,47 @@
+<html>
+{% load static %}
+<head>
+<h1 align="center">FACE MASH</h1>
+<style>
+    h1 {
+        background-color: tomato;
+        font-size: 500%
+}
+.button {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+</style>
+
+<table style="width:100%">
+  <tr>
+
+    <h2 style="text-align: center;">Which is  Beautiful? Click to choose.</h2>
+    <form id="11" action="/about" method="POST"> {% csrf_token %}
+      <table style="width:50%" align="center">
+	        <tr>
+	          <th>
+	            <img  src='/media/{{img}}' height="300" width="300" >
+
+	          </th>
+	          <th>OR</th>
+	          <th>
+	             <img src="{%static '2.jpg'%}" height="300" width="300" style="border:">
+	          </th>
+	        </tr>
+	     </table>
+    </form>
+  </tr>
+
+</head>
+<body> </body>
+
+</html>
